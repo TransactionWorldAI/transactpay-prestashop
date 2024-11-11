@@ -42,6 +42,10 @@ class Ps_Transactionpay extends PaymentModule
     public $live_public_key;
     public $live_secret_key;
     public $live_encryption_key;
+    public $public_key;
+    public $secret_key;
+    public $encryption_key;
+    public $go_live = true;
     public $extra_mail_vars;
     /**
      * @var int
@@ -65,37 +69,35 @@ class Ps_Transactionpay extends PaymentModule
         $this->currencies = true;
         $this->currencies_mode = 'checkbox';
 
-        $config = Configuration::getMultiple(['TRANSACTPAY_DETAILS', 'TRANSACTPAY_OWNER', 'TRANSACTPAY_ADDRESS', 'TRANSACTPAY_RESERVATION_DAYS']);
-        if (!empty($config['TRANSACTPAY_OWNER'])) {
-            $this->owner = $config['TRANSACTPAY_OWNER'];
-        }
-        if (!empty($config['TRANSACTPAY_DETAILS'])) {
-            $this->details = $config['TRANSACTPAY_DETAILS'];
-        }
-        if (!empty($config['TRANSACTPAY_ADDRESS'])) {
-            $this->address = $config['TRANSACTPAY_ADDRESS'];
-        }
-        if (!empty($config['TRANSACTPAY_RESERVATION_DAYS'])) {
-            $this->reservation_days = $config['TRANSACTPAY_RESERVATION_DAYS'];
-        }
-
         $this->bootstrap = true;
         parent::__construct();
 
         $this->displayName = $this->trans('TransactPay', [], 'Modules.Transactpay.Admin');
         $this->description = $this->trans('Accept payments via Transactpay during the checkout.', [], 'Modules.Transactpay.Admin');
         $this->confirmUninstall = $this->trans('Are you sure about removing these details?', [], 'Modules.Transactpay.Admin');
-        if ((!isset($this->owner) || !isset($this->details) || !isset($this->address)) && $this->active) {
-            $this->warning = $this->trans('Account owner and account details must be configured before using this module.', [], 'Modules.Transactpay.Admin');
+
+        if ((!isset($this->public_key) || !isset($this->secret_key) || !isset($this->encryption_key)) && $this->active) {
+            $this->warning = $this->trans('TransactPay Secret Key, Public Key and Encryption Key must be configured before using this module.', [], 'Modules.Transactpay.Admin');
         }
+
+        if(isset($this->go_live) && $this->go_live) {
+           $this->secret_key = $this->live_secret_key; 
+           $this->public_key = $this->live_public_key;
+           $this->encryption_key = $this->live_encryption_key;
+        } else {
+            $this->secret_key = $this->test_secret_key;
+            $this->public_key = $this->test_public_key;
+            $this->encryption_key = $this->test_encryption_key;
+        }
+
         if (!count(Currency::checkPaymentCurrencies($this->id)) && $this->active) {
             $this->warning = $this->trans('No currency has been set for this module.', [], 'Modules.Transactpay.Admin');
         }
 
         $this->extra_mail_vars = [
-            '{bankwire_owner}' => $this->owner,
-            '{bankwire_details}' => nl2br($this->details ?: ''),
-            '{bankwire_address}' => nl2br($this->address ?: ''),
+            '{secret_key}' => $this->secret_key,
+            '{public_key}' => $this->public_key,
+            '{encryption_key}' => $this->encryption_key,
         ];
     }
 
@@ -115,9 +117,9 @@ class Ps_Transactionpay extends PaymentModule
     public function uninstall()
     {
         if (!Configuration::deleteByName('TRANSACTPAY_CUSTOM_TEXT')
-                || !Configuration::deleteByName('TRANSACTPAY_DETAILS')
-                || !Configuration::deleteByName('TRANSACTPAY_OWNER')
-                || !Configuration::deleteByName('TRANSACTPAY_ADDRESS')
+                || !Configuration::deleteByName('TRANSACTPAY_SECRET_KEY')
+                || !Configuration::deleteByName('TRANSACTPAY_PUBLIC_KEY')
+                || !Configuration::deleteByName('TRANSACTPAY_ENCRYPTION_KEY')
                 || !Configuration::deleteByName('TRANSACTPAY_RESERVATION_DAYS')
                 || !Configuration::deleteByName(self::FLAG_DISPLAY_PAYMENT_INVITE)
                 || !parent::uninstall()) {
