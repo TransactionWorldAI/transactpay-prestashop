@@ -1,0 +1,53 @@
+version: '3'
+services:
+  mysql:
+    container_name: some-mysql
+    image: mysql:5.7
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: admin
+      MYSQL_DATABASE: prestashop
+    networks:
+      - prestashop_network
+    volumes:
+      - dbdata:/var/lib/mysql
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: phpmyadmin
+    links:
+      - mysql
+    environment:
+      PMA_HOST: mysql
+      PMA_PORT: 3306
+      PMA_ARBITRARY: 1
+    restart: unless-stopped
+    ports:
+      - 8081:80
+  prestashop:
+    container_name: prestashop
+    image: prestashop/prestashop:latest
+    restart: unless-stopped
+    depends_on:
+      - mysql
+    ports:
+      - 8080:80
+    environment:
+      DB_SERVER: mysql
+      DB_NAME: prestashop
+      DB_USER: root
+      DB_PASSWD: admin
+      PS_INSTALL_AUTO: 1
+      PS_FOLDER_ADMIN: admintransactionpay
+      PS_FOLDER_INSTALL: installtransactionpay
+      PS_DOMAIN: 8080-primfix-transactionpayp-xpo14h96m25.ws-eu116.gitpod.io
+    networks:
+      - prestashop_network
+    volumes:
+      - type: bind
+        source: ../ps_wirepayment
+        target: /var/www/html/modules/ps_wirepayment
+networks:
+  prestashop_network:
+volumes:
+  psdata:
+  dbdata:

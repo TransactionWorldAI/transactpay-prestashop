@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Get the custom domain
+custom_domain=$(gp url 8080)
+
+# Remove the protocol (http:// or https://)
+custom_domain=${custom_domain#*://}
+
+# Check if yq is installed, and install it if not
+if ! command -v yq &> /dev/null; then
+  brew install yq
+fi
+
+# Update the docker-compose.yml file
+yq -i ".services.prestashop.environment.PS_DOMAIN = \"${custom_domain}\"" docker-compose.yml

@@ -1,0 +1,38 @@
+{
+    "name": "transactdigital/ps_transactionpay",
+    "description": "The Official PrestaShop payment module for TransactionPay merchants",
+    "type": "prestashop-module",
+    "homepage": "https://transactpay.readme.io/reference/home",
+    "license": "AFL-3.0",
+    "authors": [
+        {
+            "name": "Transactpay Engineers",
+			"email": "support@Transactpay.com"
+        },
+		{
+			"name": "Primfix",
+			"homepage": "https://github.com/primfix"
+		}
+    ],
+    "require": {
+      "php": ">=7.4"
+    },
+    "require-dev": {
+      "prestashop/php-dev-tools": "^3.4"
+    },
+    "autoload": {
+      "classmap": [
+        "ps_transactpay.php"
+      ],
+      "exclude-from-classmap": []
+    },
+    "config": {
+      "preferred-install": "dist",
+      "classmap-authoritative": true,
+      "optimize-autoloader": true,
+      "prepend-autoloader": false,
+      "platform": {
+        "php": "7.4"
+      }
+    }
+  }
