@@ -12,7 +12,7 @@ Accept secure online payments from your customers using TransactionPay on your P
 ## 📦 Features
 
 - Accept payments via TransactionPay
-- Secure redirection or inline checkout (if supported)
+- Secure redirection or inline checkout
 - Test and Live mode support
 - Real-time order status updates via webhooks
 - Simple and intuitive configuration interface
