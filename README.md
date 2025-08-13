@@ -1,7 +1,7 @@
-# 🧾 TransactionPay PrestaShop Module
+# 🧾 Transactpay PrestaShop Module
 
-**The Official PrestaShop Plugin for TransactionPay**  
-Accept secure online payments from your customers using TransactionPay on your PrestaShop store.
+**The Official PrestaShop Plugin for Transactpay**  
+Accept secure online payments from your customers using Transactpay on your PrestaShop store.
 
 ![Version](https://img.shields.io/badge/version-1.0.0-blue)
 ![PrestaShop](https://img.shields.io/badge/PrestaShop-1.7%2B-blue)
@@ -11,7 +11,7 @@ Accept secure online payments from your customers using TransactionPay on your P
 
 ## 📦 Features
 
-- Accept payments via TransactionPay
+- Accept payments via Transactpay
 - Secure redirection or inline checkout
 - Test and Live mode support
 - Real-time order status updates via webhooks
@@ -39,8 +39,8 @@ Accept secure online payments from your customers using TransactionPay on your P
 
 ## 🔧 Configuration
 
-1. Go to `Modules > Module Manager > TransactionPay > Configure`.
-2. Enter your TransactionPay credentials:
+1. Go to `Modules > Module Manager > Transactpay > Configure`.
+2. Enter your Transactpay credentials:
    - **Public API Key**
    - **Secret API Key**
    - **Environment**: `Test` or `Live`
@@ -53,7 +53,7 @@ Accept secure online payments from your customers using TransactionPay on your P
 To ensure order statuses are updated correctly:
 
 1. Copy the **Webhook URL** from the module's configuration screen.
-2. Login to your [TransactionPay Dashboard](#).
+2. Login to your [Transactpay Dashboard](#).
 3. Navigate to **Settings > Webhooks**.
 4. Add a new webhook using the URL and enable events like:
    - `payment.success`
@@ -63,7 +63,7 @@ To ensure order statuses are updated correctly:
 
 ## 💳 Customer Payment Flow
 
-1. Customer chooses TransactionPay during checkout.
+1. Customer chooses Transactpay during checkout.
 2. They are redirected to a secure payment page (or pay inline).
 3. Upon completion, they return to your site.
 4. Order status is updated based on webhook confirmation.
@@ -73,7 +73,7 @@ To ensure order statuses are updated correctly:
 ## 🧪 Testing
 
 - Enable **Test Mode** in module settings.
-- Use TransactionPay test card credentials.
+- Use Transactpay test card credentials.
 - Place a test order and confirm the flow.
 
 ---
@@ -83,14 +83,14 @@ To ensure order statuses are updated correctly:
 | Issue | Solution |
 |-------|----------|
 | Payment option not visible | Ensure the module is enabled and supports the selected currency and shipping zone |
-| Invalid API credentials | Double-check your Public and Secret keys from TransactionPay |
-| Webhook not working | Ensure the URL is publicly accessible and configured properly in TransactionPay Dashboard |
+| Invalid API credentials | Double-check your Public and Secret keys from Transactpay |
+| Webhook not working | Ensure the URL is publicly accessible and configured properly in Transactpay Dashboard |
 
 ---
 
 ## 📚 Resources
 
-- [TransactionPay Documentation](#)
+- [Transactpay Documentation](#)
 - [Report an Issue](#)
 - [Support](#)
 
@@ -110,7 +110,7 @@ PRs and suggestions are welcome! Please open an issue or submit a pull request.
 
 ## 🧑‍💻 Maintainers
 
-Built and maintained by the TransactionPay team.
+Built and maintained by the Transactpay team.
 
 ---
 
